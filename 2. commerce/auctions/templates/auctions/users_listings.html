@@ -1,0 +1,61 @@
+{% extends "auctions/layout.html" %}
+
+{% block title %}
+    My Listings
+{% endblock %}
+
+{% block body %}
+    <h2 class="header">My Listings</h2><br><br>
+    <div>
+        {% for listing in users_listings %}
+            <div class="card mb-3" style="max-width: 840px;">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img src="{{ listing.cover }}" class="img-fluid rounded-start" alt="{{ listing }}">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <a class="link_black" href="{% url 'listing_page' listing.pk %}">
+                                    {{ listing }}
+                                </a>
+                            </h5><br>
+                            <p class="card-text">Price ${{ listing.start_bid }}</p><br>
+                            <p class="card-text">{{ listing.description }}</p><br>
+                            <p class="card-text"><small class="text-body-secondary">Created {{ listing.created }}</small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <h4>You don't have any listings!</h4>
+        {% endfor %}
+    </div><br>
+    <hr><br>
+    <h2 class="header">Closed Listings</h2><br><br>
+    <div>
+        {% for listing in closed_listings %}
+            <div class="card mb-3" style="max-width: 840px;">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img src="{{ listing.cover }}" class="img-fluid rounded-start" alt="{{ listing }}">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <a class="link_black" href="{% url 'listing_page' listing.pk %}">
+                                    {{ listing }}
+                                </a>
+                            </h5><br>
+                            <p class="card-text">Price ${{ listing.start_bid }}</p><br>
+                            <p class="card-text">{{ listing.description }}</p><br>
+                            <p class="card-text"><small class="text-body-secondary">Created {{ listing.created }}</small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <h4>You haven't won any listing yet!</h4>
+        {% endfor %}
+    </div><br>
+{% endblock %}

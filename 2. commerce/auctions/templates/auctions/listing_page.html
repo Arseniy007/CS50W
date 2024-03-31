@@ -1,0 +1,98 @@
+{% extends "auctions/layout.html" %}
+
+{% block title %}
+    {{ listing.title }}
+{% endblock %}
+
+{% block body %}
+    {% if listing.winner and request.user == listing.winner %}
+    <div class="alert alert-success" role="alert">
+        <h5>You won this auction with ${{ current_bid.amount }}</h5>
+    </div>
+    {% endif %}
+    <h2><b>{{ listing }}</b></h2>
+    <div>
+        {% if listing.user != request.user %}
+            <button type="button" class="btn btn-light">
+                <a class="link_black" href="{% url 'add_to_watchlist' listing.pk %}">
+                    {% if watchlist %}
+                        <b>Remove from watchlist</b>
+                    {% else %}
+                        <b>Add to Watchlist</b>
+                    {% endif %}
+                </a>
+            </button>
+        {% else %}
+            {% if listing.active %}
+                <div>
+                    <button type="button" class="btn btn-success">
+                        <a class="link" href="{% url 'close_auction' listing.pk %}"><b>Close Auction</b></a>
+                    </button>
+                </div>
+            {% else %}
+                <div class="alert alert-warning" role="alert">
+                    This auction is closed. Winner is {{ listing.winner }}
+                </div>
+            {% endif %}
+        {% endif %}
+    </div><br>
+    <div class="cover_block">
+        <img class="listing_cover" src="{{ listing.cover }}" alt="Listing image">
+    </div>
+    <div class="listing_info">
+        <br>
+        <h4><b>Price: ${{ listing.start_bid }}</b></h4>
+        {% if current_bid %}
+            <h4 id="bid_amount"><b>Current Bid: ${{ current_bid.amount }}</b></h4>
+            <h6 id="bid_author">by {{ current_bid.user }}</h6>
+        {% else %}
+            <h4>No bids yet</h4>
+        {% endif %}
+        <br><br>
+        {% if user.is_authenticated %}
+            {% if listing.user != request.user %}
+                <form action="{% url 'place_bid' listing.pk %}" method="post">
+                    {% csrf_token %}
+                    {{ new_bid_form }}
+                    <button type="submit" class="btn btn-primary">Place new bid</button>
+                </form>
+            {% endif %}
+        {% else %}
+            <div class="alert alert-danger" role="alert">
+                <h5>You must be logged in to place new bids</h5>
+            </div> 
+        {% endif %}
+    </div>
+    <div class="clear"></div>
+    <hr>
+    <div>
+        <h4>Comments</h4><br>
+        {% if user.is_authenticated %}
+            <div class="list-group">
+                {% for comment in all_comments %}
+                    <div class="list-group-item list-group-item-action flex-column align-items-start comment">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">{{ comment.headline }}</h5>
+                            <small>{{ comment.created }}</small>
+                        </div>
+                        <p class="mb-1">{{ comment }}</p>
+                        <small>By {{ comment.user }}</small>
+                    </div>
+                {% empty %}
+                    <h5><b>No comments!</b></h5>
+                {% endfor %}
+            </div><br>
+            <form action="{% url 'comment' listing.pk %}" method="post">
+                <h4>Write new comment</h4>
+                {% csrf_token %}
+                {{ new_comment_form.as_div }}
+                <br>
+                <button type="submit" class="btn btn-secondary">Leave comment</button>
+            </form><br>
+        {% else %}
+            <div class="alert alert-danger" role="alert">
+                <h5>You must be logged in to see and write comments</h5>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

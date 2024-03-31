@@ -1,0 +1,138 @@
+body 
+{
+    padding: 10px;
+    background-color: blanchedalmond;
+}
+
+.navigation
+{
+    background-color: rgba(182, 16, 188, 0.609);
+    border-radius: 15px;
+}
+
+.header
+{
+    text-align: center;
+}
+
+.link, .link:hover
+{
+    text-decoration: none;
+    color: white;
+}
+
+.link_black, .link_black:hover
+{
+  text-decoration: none;
+  color: black;
+}
+
+.cover_block
+{
+  float: left;
+  margin: 10px;
+  margin-right: 50px;
+}
+
+.listing_cover
+{
+  width: 550px;
+}
+
+.clear
+{
+  clear: both;
+}
+
+#bid_amount, #bid_author
+{
+  display: inline;
+}
+
+.listing_info
+{
+  margin: 10px;
+  margin-left: 50px;
+}
+
+.new_comment_header
+{
+  padding: 10px;
+  margin-bottom: 5px;
+  width: 700px;
+  height: 50px;
+}
+
+.new_comment
+{
+  padding: 10px;
+  width: 700px;
+  height: 100px;
+}
+
+.comment
+{
+  margin: 5px;
+}
+
+.list_of_categories
+{
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  list-style-position: inside;
+}
+
+.new_category
+{
+  padding: 10px;
+  margin: 5px;
+  width: 500px;
+}
+
+.category
+{
+  padding: 10px;
+  margin: 5px;
+  width: 500px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.counter
+{
+  background-color: rgba(182, 16, 188, 0.609);
+}
+
+.category_button
+{
+  margin-top: 5px;
+}
+
+.listing_button
+{
+  margin-left: 10px;
+}
+
+.alert
+{
+  width: 400px;
+  float: right;
+  margin-right: 470px;
+}
+
+.listing_description_field
+{
+  height: 300px;
+}
+
+.new_listing_form
+{
+  margin: 10px;
+  margin-right: 20px;
+}
+
+#create_listing_header
+{
+  margin-left: 20px;
+}

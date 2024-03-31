@@ -1,0 +1,51 @@
+nav
+{
+    padding: 10px;
+}
+
+.container
+{
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: auto;
+}
+
+.input_form
+{
+    border-radius: 15px;
+    width: 60%;
+    margin: auto;
+}
+
+.submit, .advanced_submit
+{
+    color: white;
+    background-color: rgba(0, 0, 255, 0.768);
+}
+
+.advanced_submit
+{
+    margin-left: 190px;
+}
+
+.option, #header
+{
+    text-align: left;
+    margin: 10px;
+}
+
+#header
+{
+    margin-left: 20px;
+}
+
+.advanced_input
+{
+    width: 60%;
+}
+
+.label, .advanced_input
+{
+    margin: 10px;
+}

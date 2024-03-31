@@ -1,0 +1,62 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+{% block body %}
+    <h2>Following posts</h2><br>
+    <div class="posts_container">
+        {% for post in page_obj %}
+            <div class="card mb-3 post" id="post_{{ post.pk }}">
+                <div class="card-body">
+                    <h6 id="user_{{ post.pk }}" class="card-title user">
+                        <a class="black_link" href="{% url 'profile' post.user.pk %}">@{{ post.user.username }}</a>
+                    </h6>
+                    {% if post.user == user %}
+                        <button data-post_id="{{ post.pk }}" class="btn btn-secondary edit_button">Edit</button>
+                    {% endif %}
+                    <div id="edit_form_{{ post.pk }}" style="display: none;">
+                        <textarea id="new_text_{{ post.pk }}" class="form-control" style="margin-top: 20px;">{{ post.text }}</textarea><br> 
+                        <button class="btn btn-info" id="save_{{ post.pk }}">Save</button>
+                        <button data-post_id="{{ post.pk }}" class="btn btn-danger delete_button">Delete</button>
+                    </div>
+                    <div class="post_view" id="post_view_{{ post.pk }}" style="display: block">
+                        <h5 id="text_{{ post.pk }}" class="card-text">{{ post.text }}</h5>
+                        <div>
+                            <h6 id="likes_for_{{ post.pk }}" class="number_of_likes">Likes: {{ post.number_of_likes }}</h6>
+                            <button data-post_id="{{ post.pk }}" class="btn btn-primary like_button">
+                                <i class="fa fa-heart" aria-hidden="true"></i>
+                            </button><br>
+                        </div>
+                        <small>{{ post.created }}</small>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div><br><hr>
+    {% if page_obj.paginator.num_pages > 1 %}
+        <nav class="pages">
+            <ul class="pagination">
+                {% if page_obj.has_previous %}
+                    <li class="page-item"><a class="page-link black_link" href="?page={{ page_obj.previous_page_number }}">Previous page</a></li>
+                {% else %}
+                    <li class="page-item disabled"><a class="page-link black_link" href="#">Previous page</a></li>
+                {% endif %}
+                {% for page_number in page_numbers %}
+                    {% if page_number == page_obj.number %}
+                        <li class="page-item active"><span class="page-link">{{ page_obj.number }}</span></li>
+                    {% else %}
+                        <li class="page-item"><a class="page-link black_link" aria-current="page" href="?page={{ page_number }}">{{ page_number }}</a></li>
+                    {% endif %}
+                {% endfor %}
+                {% if page_obj.has_next %}
+                    <li class="page-item"><a class="page-link black_link" href="?page={{ page_obj.next_page_number }}">Next Page</a></li>
+                {% else %}
+                    <li class="page-item disabled"><a class="page-link black_link" href="#">Next Page</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    {% endif %}
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'network/script.js' %}"></script>
+{% endblock %}
